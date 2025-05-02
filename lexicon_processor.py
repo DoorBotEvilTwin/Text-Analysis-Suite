@@ -402,7 +402,7 @@ def call_local_llm_api(prompt, llm_config):
     payload = {
         "model": llm_config.get('model', 'local-model'),
         "messages": [{"role": "user", "content": prompt}],
-        "temperature": float(llm_config.get('temperature', 0.0)),
+        "temperature": float(llm_config.get('temperature', 1.0)),
         "max_tokens": int(llm_config.get('max_tokens', 256)),
     }
     payload = {k: v for k, v in payload.items() if v is not None}
