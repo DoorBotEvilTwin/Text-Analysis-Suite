@@ -31,6 +31,7 @@ The main script (`lexicon_analyzer.py`) calculates the following metrics for eac
 4.  **Unique Words:** The count of distinct word *types* (case-insensitive) found in the file. This represents the size of the vocabulary (V) used.
 
 **B. Readability & Sentence Structure**
+
 5.  **Average Sentence Length:** The average number of words per sentence (Total Words / Number of Sentences). Provides a basic measure of syntactic complexity.
 
 6.  **Flesch Reading Ease:** A widely used readability formula (0-100 scale) based on average sentence length and average syllables per word. Scores around 60-70 are considered plain English. Higher scores indicate easier text; very low scores indicate complex, potentially difficult-to-read text.
