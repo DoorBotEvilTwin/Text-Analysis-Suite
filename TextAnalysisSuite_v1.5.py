@@ -1,4 +1,4 @@
-# FileAnalysisSuite_v1.5.py
+# TextAnalysisSuite_v1.5.py
 # Shortcut script to launch the main run_suite.py located in a subfolder.
 
 import os
