@@ -44,7 +44,7 @@ The intended workflow is:
     *   **Function:** Performs a final meta-analysis using a **text-based** local LLM. It reads the *entire* textual content and plot references from the HTML report and prompts the LLM to provide a high-level overview and synthesis of the complete analysis. It also calculates and adds an estimated LLM context size requirement near the top of the report.
     *   **Output:** Updates `_LEXICON.html` one last time by appending the LLM meta-analysis section (within `<pre>` tags for raw formatting) and adding a link to it in the Table of Contents. Appends to `_LEXICON_errors.log`.
 
-The suite is particularly useful for analyzing and comparing outputs from Large Language Models (LLMs), but can be applied to any collection of text documents seeking detailed linguistic profiling and interpretation. A top-level shortcut script `FileAnalysisSuite_v1.5.py` is also provided to launch `run_suite.py` from a parent directory, assuming the suite scripts are in a subfolder named `FAS_1.5`.
+The suite is particularly useful for analyzing and comparing outputs from Large Language Models (LLMs), but can be applied to any collection of text documents seeking detailed linguistic profiling and interpretation. A top-level shortcut script `TextAnalysisSuite_v1.5.py` is also provided to launch `run_suite.py` from a parent directory, assuming the suite scripts are in a subfolder named `FAS_1.5`.
 
 *Note on Data Privacy:* While the Processor script *can* be configured to send raw text snippets to a *local* LLM for content summarization (if `CONTENT_SUMMARY_ENABLED=True` in the script), the default configuration and core design emphasize analyzing metrics derived from the text, not the raw text itself, especially concerning potential future API integration. Filenames are never sent to the LLM; anonymized IDs are used in prompts.
 
@@ -219,12 +219,12 @@ The suite generates a comprehensive HTML report (`_LEXICON.html`) that includes 
 
 ## Usage
 
-The recommended way to run the full suite is using the `run_suite.py` wrapper script, typically launched via the top-level `FileAnalysisSuite_v1.5.py` shortcut.
+The recommended way to run the full suite is using the `run_suite.py` wrapper script, typically launched via the top-level `TextAnalysisSuite_v1.5.py` shortcut.
 
-### Using the Shortcut (`FileAnalysisSuite_v1.5.py`)
+### Using the Shortcut (`TextAnalysisSuite_v1.5.py`)
 
 1.  **Place Files:**
-    *   Place `FileAnalysisSuite_v1.5.py` in your desired project directory.
+    *   Place `TextAnalysisSuite_v1.5.py` in your desired project directory.
     *   Ensure the actual suite scripts (`lexicon_*.py`, `run_suite.py`, `lexicon_settings.ini`) are located in a subfolder named `FAS_1.5` within that same project directory.
     *   Place your `.txt` files to be analyzed inside a folder named `txt` within the `FAS_1.5` subfolder (i.e., `YourProject/FAS_1.5/txt/your_file.txt`).
 2.  **Configure LLM (Optional but needed for Transformer/Processor/Optimizer):**
@@ -234,7 +234,7 @@ The recommended way to run the full suite is using the `run_suite.py` wrapper sc
     *   Specify the `transformer_model` (must be multimodal) and `processor_model` (text is fine).
     *   Adjust `temperature`, `max_tokens` as needed.
 3.  **Start Local LLM Backend:** Launch your LLM server application (e.g., KoboldCpp) with the appropriate models loaded (multimodal for transformer, text for processor/optimizer). Ensure sufficient context size (e.g., >2k tokens).
-4.  **Run the Shortcut:** Double-click `FileAnalysisSuite_v1.5.py` or run `py FileAnalysisSuite_v1.5.py` from the command line in your project directory.
+4.  **Run the Shortcut:** Double-click `TextAnalysisSuite_v1.5.py` or run `py TextAnalysisSuite_v1.5.py` from the command line in your project directory.
 5.  **Use the Menu:** The `run_suite.py` menu will appear.
     *   Select `1` to run the full sequence (Analyze > Visualize > Transform > Process > Optimize).
     *   Select `2-7` to run individual scripts.
