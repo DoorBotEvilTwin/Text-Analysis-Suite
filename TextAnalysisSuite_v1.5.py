@@ -7,7 +7,7 @@ import subprocess
 
 # --- Configuration ---
 # The name of the subfolder containing the actual suite scripts
-SUITE_SUBFOLDER_NAME = "FAS_1.5"
+SUITE_SUBFOLDER_NAME = "TAS_1.5"
 
 # --- Find Paths ---
 try:

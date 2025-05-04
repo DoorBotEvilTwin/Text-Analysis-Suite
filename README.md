@@ -44,7 +44,7 @@ The intended workflow is:
     *   **Function:** Performs a final meta-analysis using a **text-based** local LLM. It reads the *entire* textual content and plot references from the HTML report and prompts the LLM to provide a high-level overview and synthesis of the complete analysis. It also calculates and adds an estimated LLM context size requirement near the top of the report.
     *   **Output:** Updates `_LEXICON.html` one last time by appending the LLM meta-analysis section (within `<pre>` tags for raw formatting) and adding a link to it in the Table of Contents. Appends to `_LEXICON_errors.log`.
 
-The suite is particularly useful for analyzing and comparing outputs from Large Language Models (LLMs), but can be applied to any collection of text documents seeking detailed linguistic profiling and interpretation. A top-level shortcut script `TextAnalysisSuite_v1.5.py` is also provided to launch `run_suite.py` from a parent directory, assuming the suite scripts are in a subfolder named `FAS_1.5`.
+The suite is particularly useful for analyzing and comparing outputs from Large Language Models (LLMs), but can be applied to any collection of text documents seeking detailed linguistic profiling and interpretation. A top-level shortcut script `TextAnalysisSuite_v1.5.py` is also provided to launch `run_suite.py` from a parent directory, assuming the suite scripts are in a subfolder named `TAS_1.5`.
 
 *Note on Data Privacy:* While the Processor script *can* be configured to send raw text snippets to a *local* LLM for content summarization (if `CONTENT_SUMMARY_ENABLED=True` in the script), the default configuration and core design emphasize analyzing metrics derived from the text, not the raw text itself, especially concerning potential future API integration. Filenames are never sent to the LLM; anonymized IDs are used in prompts.
 
@@ -225,10 +225,10 @@ The recommended way to run the full suite is using the `run_suite.py` wrapper sc
 
 1.  **Place Files:**
     *   Place `TextAnalysisSuite_v1.5.py` in your desired project directory.
-    *   Ensure the actual suite scripts (`lexicon_*.py`, `run_suite.py`, `lexicon_settings.ini`) are located in a subfolder named `FAS_1.5` within that same project directory.
-    *   Place your `.txt` files to be analyzed inside a folder named `txt` within the `FAS_1.5` subfolder (i.e., `YourProject/FAS_1.5/txt/your_file.txt`).
+    *   Ensure the actual suite scripts (`lexicon_*.py`, `run_suite.py`, `lexicon_settings.ini`) are located in a subfolder named `TAS_1.5` within that same project directory.
+    *   Place your `.txt` files to be analyzed inside a folder named `txt` within the `TAS_1.5` subfolder (i.e., `YourProject/TAS_1.5/txt/your_file.txt`).
 2.  **Configure LLM (Optional but needed for Transformer/Processor/Optimizer):**
-    *   Edit `FAS_1.5/lexicon_settings.ini`.
+    *   Edit `TAS_1.5/lexicon_settings.ini`.
     *   Set `[LocalLLM]` `enabled = true`.
     *   Set `api_base` to your local LLM server's **full API endpoint URL**.
     *   Specify the `transformer_model` (must be multimodal) and `processor_model` (text is fine).
@@ -241,13 +241,13 @@ The recommended way to run the full suite is using the `run_suite.py` wrapper sc
     *   Select `8` to edit `lexicon_settings.ini`.
     *   Select `9` to view the `_LEXICON.html` report.
     *   Select `0` to quit.
-6.  **Wait & View:** Monitor the console output. After completion, check the `FAS_1.5` folder for outputs, especially the updated `_LEXICON.html`.
+6.  **Wait & View:** Monitor the console output. After completion, check the `TAS_1.5` folder for outputs, especially the updated `_LEXICON.html`.
 
 ### Running Scripts Individually
 
-You can run scripts one by one from within the `FAS_1.5` folder, but ensure they are run in the correct order: **Analyzer -> Visualizer -> Transformer -> Processor -> Optimizer**. Pass the target folder path (which will be the `FAS_1.5` folder itself) as a command-line argument.
+You can run scripts one by one from within the `TAS_1.5` folder, but ensure they are run in the correct order: **Analyzer -> Visualizer -> Transformer -> Processor -> Optimizer**. Pass the target folder path (which will be the `TAS_1.5` folder itself) as a command-line argument.
 
-1.  `cd FAS_1.5`
+1.  `cd TAS_1.5`
 2.  `py lexicon_analyzer.py .` (Note the `.` for current directory)
 3.  `py lexicon_visualizer.py .`
 4.  *(Start multimodal LLM server)* `py lexicon_transformer.py .`
@@ -256,7 +256,7 @@ You can run scripts one by one from within the `FAS_1.5` folder, but ensure they
 
 ## Output Files
 
-Generated/Updated inside the **target folder** (e.g., `FAS_1.5`):
+Generated/Updated inside the **target folder** (e.g., `TAS_1.5`):
 
 1.  **`_LEXICON.csv`:** Comma-separated values file with individual metrics per row (ordered as described above). Collective metrics appended after a separator. Used by subsequent scripts.
 2.  **`_LEXICON.txt`:** Formatted text file with the same data for console viewing.
@@ -283,7 +283,7 @@ Generated/Updated inside the **target folder** (e.g., `FAS_1.5`):
 
 ## Configuration Notes (`lexicon_settings.ini`)
 
-*   This file controls the behavior of the LLM-dependent scripts (Transformer, Processor, Optimizer). Create/edit it in the same directory as the scripts (e.g., `FAS_1.5`).
+*   This file controls the behavior of the LLM-dependent scripts (Transformer, Processor, Optimizer). Create/edit it in the same directory as the scripts (e.g., `TAS_1.5`).
 *   **`[LocalLLM]` Section:**
     *   `enabled`: Set to `true` to enable LLM features, `false` to disable (Transformer/Optimizer will fail, Processor will only use rules).
     *   `api_base`: **Crucial.** Set to the **full URL** of your running local LLM's OpenAI-compatible API endpoint (e.g., `http://127.0.0.1:5001/v1/chat/completions`).
