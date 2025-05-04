@@ -81,7 +81,7 @@ SYNTHESIS_MAX_TOKENS_MULTIPLIER = 8.0 # Multiplier for final synthesis token lim
 # --- NEW: Config for Content Summarization ---
 # <<< FIX: Enabled by default based on updated policy >>>
 CONTENT_SUMMARY_ENABLED = True # Set to True to enable (Requires LLM access to raw text)
-CONTENT_SUMMARY_MAX_TOKENS = 512 # Token limit for content summaries
+CONTENT_SUMMARY_MAX_TOKENS = 1024 # Token limit for content summaries
 
 # --- Clustering Configuration ---
 CLUSTER_METRIC = 'euclidean'
@@ -618,9 +618,9 @@ Raw Metrics:
 Context (Dataset Statistics):
 {context_str}
 
-Provide a brief summary (2-4 sentences) interpreting these metrics for this specific document.
+Provide a brief summary (3-5 sentences) interpreting these metrics for this specific document.
 - Compare its key metrics (especially {', '.join(KEY_METRICS_FOR_FILE_SUMMARY[:4])}) to the dataset averages/context provided, using the **Raw Metrics** values shown above.
-- Highlight 1-2 notable characteristics (e.g., significantly higher/lower diversity, complexity, readability, repetition, sentiment than average).
+- Highlight 2-4 notable characteristics (e.g., significantly higher/lower diversity, complexity, readability, repetition, sentiment than average).
 - Briefly explain any interesting combinations (e.g., if TTR is high but RTTR/MTLD are average/low, what might that imply?).
 - Focus on providing insight based *only* on the provided numbers (Raw Metrics and Context). Do not mention the anonymized ID in your response.
 """ # Removed Markdown instruction
@@ -630,20 +630,20 @@ Provide a brief summary (2-4 sentences) interpreting these metrics for this spec
 def generate_content_summary_prompt(anonymized_id, text_content):
     """Generates a prompt for summarizing the actual text content."""
     # Limit content length to avoid excessive prompt size
-    max_content_chars = 4000 # Adjust as needed
+    max_content_chars = 128000 # 4000 # Adjust as needed
     truncated_content = text_content[:max_content_chars]
     if len(text_content) > max_content_chars:
         truncated_content += "..."
 
     prompt = f"""
-Please provide a very brief (1-2 sentence) abstract summarizing the main topic or purpose of the following text content, identified as "{anonymized_id}". Focus on *what* the text is about. Do not mention the anonymized ID in your response.
+Please provide an extensive (3-5 paragraph) abstract summarizing the main topic or purpose of the following text content, identified as "{anonymized_id}". Focus on *what* the text is about. Do not mention the anonymized ID in your response.
 
 Text Content (potentially truncated):
 --- START CONTENT ---
 {truncated_content}
 --- END CONTENT ---
 
-Generate the 1-2 sentence abstract:
+Generate the 3-5 paragraph abstract:
 """
     return prompt
 
